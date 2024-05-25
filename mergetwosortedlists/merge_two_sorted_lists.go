@@ -44,3 +44,41 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	}
 	return mergedList
 }
+
+func mergeTwoListsNoExtraMemory(list1 *ListNode, list2 *ListNode) *ListNode {
+	if list1 == nil {
+		return list2
+	} else if list2 == nil {
+		return list1
+	}
+
+	var mergedListHead *ListNode
+	var currentNode *ListNode
+	var danglingNode *ListNode
+
+	if list1.Val <= list2.Val {
+		currentNode = list1
+		danglingNode = list2
+	} else {
+		currentNode = list2
+		danglingNode = list1
+	}
+
+	mergedListHead = currentNode
+
+	for currentNode.Next != nil && danglingNode != nil {
+		if currentNode.Next.Val <= danglingNode.Val {
+			currentNode = currentNode.Next
+		} else {
+			temp := currentNode.Next
+			currentNode.Next = danglingNode
+			danglingNode = temp
+		}
+	}
+
+	if danglingNode != nil {
+		currentNode.Next = danglingNode
+	}
+
+	return mergedListHead
+}
