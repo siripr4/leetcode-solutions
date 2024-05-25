@@ -18,12 +18,10 @@ func longestCommonPrefix(strs []string) string {
 				if index == 0 {
 					currChar = string(str[i])
 				} else if currChar != string(str[i]) {
-					currChar = ""
-					break
+					return prefix
 				}
 			} else {
-				currChar = ""
-				break
+				return prefix
 			}
 		}
 		if currChar == "" {
